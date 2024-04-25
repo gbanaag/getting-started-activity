@@ -1,4 +1,5 @@
 import {defineConfig} from 'vite';
+import reactRefresh from '@vitejs/plugin-react-refresh';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,6 +15,12 @@ export default defineConfig({
     },
     hmr: {
       clientPort: 443,
+    }, 
+    esbuild: {
+      jsxFactory: 'React.createElement',
+      jsxInject: `import React from 'react';`
     },
+    plugins: [reactRefresh()]
   },
 });
+

@@ -1,17 +1,35 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: 'Cooper Std Black', 'Karla';
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #F9E2C7;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@font-face {
+  font-family: 'Cooper Std Black';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Cooper Std Black'), url('./assets/fonts/CooperBlack-Std.woff') format('woff');
+  }
+  
+
+  @font-face {
+  font-family: 'Cooper Std Black Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Cooper Std Black Italic'), url('./assets/fonts/CooperBlack-StdItal.woff') format('woff');
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
 
 a {
   font-weight: 500;
@@ -72,6 +90,10 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+p, a {
+  font-family: "Karla";
 }
 
 @media (prefers-color-scheme: light) {
