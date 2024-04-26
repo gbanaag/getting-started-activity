@@ -1,57 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
+import CharacterCreatorPage from './components/CharacterCreatorPage';
+import PersonalityHobbyPage from './components/PersonalityHobbyPage';
+import CareerPickerPage from './components/CareerPickerPage';
 import { DiscordSDK } from '@discord/embedded-app-sdk';
 import './style.css';
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('home');
   const [discordSdk, setDiscordSdk] = useState(null);
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(true);
 
   // Set up Discord SDK when component mounts
   useEffect(() => {
+    console.log('useEffect hook called');
     async function setupDiscordSdk() {
-      const sdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
-      await sdk.ready();
-      setDiscordSdk(sdk);
-      setIsReady(true);
+      console.log('setupDiscordSdk called');
+      try {
+        const sdk = new DiscordSDK(import.meta.env.VITE_DISCORD_CLIENT_ID);
+        await sdk.ready();
+        console.log('Discord SDK ready');
+        setDiscordSdk(sdk);
+        setIsReady(true);
+      } catch (error) {
+        console.error('Error setting up Discord SDK:', error);
+        // Handle error (e.g., display error message)
+      }
     }
     setupDiscordSdk();
-  }, []);
-
-  // if (!isReady) {
-  //   return React.createElement('div', null, 'Loading...');
-  // }
-
-  // Function to render the appropriate page based on currentPage state
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <HomePage discordSdk={discordSdk} />;
-      case 'about':
-        return <AboutPage discordSdk={discordSdk} />;
-      default:
-        return <div>Page not found</div>;
-    }
-  };
-
-  // Function to handle page navigation
-  const navigateToPage = (page) => {
-    setCurrentPage(page);
-  };
+  }, []);  
 
   return (
     <div>
-      {/* Navigation */}
-      <nav>
-        <button onClick={() => navigateToPage('home')}>Home</button>
-        <button onClick={() => navigateToPage('about')}>About</button>
-      </nav>
-
-      {/* Render current page */}
-      {renderPage()}
+      <BrowserRouter>
+        <Routes> {/* Wrap your Route components with Routes */}
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/character" element={<CharacterCreatorPage />} />
+          <Route path="/personality-hobby" element={<PersonalityHobbyPage />} />
+          <Route path="/career" element={<CareerPickerPage />} />
+        </Routes>
+      </BrowserRouter>
+      {!isReady && <div>Loading...</div>}
     </div>
   );
 };
