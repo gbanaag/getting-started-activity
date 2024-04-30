@@ -94,6 +94,7 @@ button:focus-visible {
 
 p, a {
   font-family: "Karla";
+  font-size: 1000px;
 }
 
 @media (prefers-color-scheme: light) {
